@@ -1,7 +1,22 @@
+import Title from '@/components/ui/Title/Title';
+import { notFound } from 'next/navigation';
 import React from 'react'
-
-export default function CategoryPage() {
+interface Props {
+  params: {
+    id: string;
+  }
+}
+export default function CategoryPage({params}: Props) {
+  const {id} = params;
+  
+  if (id === 'no') {
+    notFound();
+  }
   return (
-    <div>CategoryPage</div>
+    <div>
+      <Title
+      title='Oversizes'
+      subtitle='Todas nuestros modelos overzises'/>
+    </div>
   )
 }

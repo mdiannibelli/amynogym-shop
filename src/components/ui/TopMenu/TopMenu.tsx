@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import {IoCartOutline, IoSearchOutline} from "react-icons/io5"
+import ButtonMenu from './ButtonMenu'
 
 export default function TopMenu() {
   return (
@@ -15,6 +16,8 @@ export default function TopMenu() {
         <div className='hidden sm:flex flex-1 justify-center items-center'>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/">Inicio</Link>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/products">Productos</Link>
+            <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/oversizes">Oversizes</Link>
+           {/*  //TODO Productos - Selector(Oversizes | Musculosas) */}
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="#">Contacto</Link>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="#">Más información</Link>
         </div>
@@ -31,9 +34,7 @@ export default function TopMenu() {
                 </div>
             </Link>
 
-            <button className='m-2 p-2 rounded-md transition-all hover:bg-gray-100'>
-                Menu
-            </button>
+            <ButtonMenu/>
         </div>
     </nav>
   )
