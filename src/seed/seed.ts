@@ -12,7 +12,7 @@ interface SeedProduct {
 }
 
 type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats';
+type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats' | 'oversizes';
 
 interface SeedData {
     products: SeedProduct[],
@@ -33,7 +33,7 @@ export const initialData: SeedData = {
             price: 75,
             sizes: ['XS','S','M','L','XL','XXL'],
             slug: "mens_chill_crew_neck_sweatshirt",
-            type: 'shirts',
+            type: 'oversizes',
             tags: ['sweatshirt'],
             title: "Men’s Chill Crew Neck Sweatshirt",
             gender: 'men'
@@ -80,7 +80,7 @@ export const initialData: SeedData = {
             price: 45,
             sizes: ['XS','S','M','L'],
             slug: "men_turbine_long_sleeve_tee",
-            type: 'shirts',
+            type: 'oversizes',
             tags: ['shirt'],
             title: "Men's Turbine Long Sleeve Tee",
             gender: 'men'
@@ -95,7 +95,7 @@ export const initialData: SeedData = {
             price: 40,
             sizes: ['M','L','XL','XXL'],
             slug: "men_turbine_short_sleeve_tee",
-            type: 'shirts',
+            type: 'oversizes',
             tags: ['shirt'],
             title: "Men's Turbine Short Sleeve Tee",
             gender: 'men'
@@ -110,7 +110,7 @@ export const initialData: SeedData = {
             price: 35,
             sizes: ['M','L','XL','XXL'],
             slug: "men_cybertruck_owl_tee",
-            type: 'shirts',
+            type: 'oversizes',
             tags: ['shirt'],
             title: "Men's Cybertruck Owl Tee",
             gender: 'men'
@@ -125,7 +125,7 @@ export const initialData: SeedData = {
             price: 35,
             sizes: ['S','M','L','XL'],
             slug: "men_solar_roof_tee",
-            type: 'shirts',
+            type: 'oversizes',
             tags: ['shirt'],
             title: "Men's Solar Roof Tee",
             gender: 'men'
