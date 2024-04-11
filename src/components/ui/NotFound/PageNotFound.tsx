@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function PageNotFound() {
   return (
-    <div className='flex flex-col md:flex-row h-[800px] w-full justify-center items-center align-middle'>
+    <div className='flex flex-col-reverse md:flex-row h-[800px] w-full justify-center items-center align-middle'>
         <div className='text-center px-5 mx-5 '>
             <h2 className={`${sairaFont.className} text-9xl font-[700]`}>404</h2>
             <p className={`${sairaFont.className} text-xl font-[400]`}>Oops! Lo sentimos mucho</p>

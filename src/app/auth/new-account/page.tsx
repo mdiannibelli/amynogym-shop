@@ -1,14 +1,19 @@
 import { sairaFont } from '@/config/font';
 import Link from 'next/link';
 
-export default function LoginPage() {
+export default function NewAccount() {
   return (
     <main className="flex flex-col min-h-screen pt-32 sm:pt-52">
 
-      <h1 className={ `${ sairaFont.className } text-4xl mb-5` }>Ingresar</h1>
+      <h1 className={ `${ sairaFont.className } text-4xl mb-5` }>Nueva cuenta</h1>
 
       <div className="flex flex-col">
 
+        <label htmlFor="nombre">Nombre Completo</label>
+        <input
+          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          type="text" />
+          
         <label htmlFor="email">Correo electrónico</label>
         <input
           className="px-5 py-2 border bg-gray-200 rounded mb-5"
@@ -23,7 +28,7 @@ export default function LoginPage() {
         <button
           
           className="rounded hover:bg-blue-800 duration-300 bg-blue-700 py-2 text-white">
-          Ingresar
+          Crear cuenta
         </button>
 
 
@@ -35,9 +40,9 @@ export default function LoginPage() {
         </div>
 
         <Link
-          href="/auth/new-account" 
+          href="/auth/login" 
           className="rounded hover:bg-gray-400 duration-300 bg-gray-300 text-center py-2 text-black">
-          Crear una nueva cuenta
+          Ingresar
         </Link>
 
       </div>

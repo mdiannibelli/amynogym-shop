@@ -48,37 +48,41 @@ export const SideMenu = () => {
             </div>
 
             {/* Menu Options */}
-            <Link href='/' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='/' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoPersonOutline size={30}/>
-                <span className='ml-3 text-xl'>Perfil</span>
+                <span className='ml-3 text-sm md:text-xl'>Perfil</span>
             </Link>
-            <Link href='/orders' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='/products' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                <IoPersonOutline size={30}/>
+                <span className='ml-3 text-sm md:text-xl'>Tienda</span>
+            </Link>
+            <Link href='/orders' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoTicketOutline size={30}/>
-                <span className='ml-3 text-xl'>Ordenes</span>
+                <span className='ml-3 text-sm md:text-xl'>Ordenes</span>
             </Link>
-            <Link href='#' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoLogInOutline size={30}/>
-                <span className='ml-3 text-xl'>Ingresar</span>
+                <span className='ml-3 text-sm md:text-xl'>Ingresar</span>
             </Link>
-            <Link href='#' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoLogOutOutline size={30}/>
-                <span className='ml-3 text-xl'>Salir</span>
+                <span className='ml-3 text-sm md:text-xl'>Salir</span>
             </Link>
 
             {/* Line Separator */}
             <div className='w-full h-px bg-gray-200 my-10'></div>
 
-            <Link href='#' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoShirtOutline size={30}/>
-                <span className='ml-3 text-xl'>Productos</span>
+                <span className='ml-3 text-sm md:text-xl'>Productos</span>
             </Link>
-            <Link href='#' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoTicketOutline size={30}/>
-                <span className='ml-3 text-xl'>Orders</span>
+                <span className='ml-3 text-sm md:text-xl'>Orders</span>
             </Link>
-            <Link href='#' className='flex items-center mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoPeopleOutline size={30}/>
-                <span className='ml-3 text-xl'>Clientes</span>
+                <span className='ml-3 text-sm md:text-xl'>Clientes</span>
             </Link>
         </nav>
     </div>

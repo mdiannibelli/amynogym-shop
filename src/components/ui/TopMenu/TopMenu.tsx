@@ -5,7 +5,7 @@ import ButtonMenu from './ButtonMenu'
 
 export default function TopMenu() {
   return (
-    <nav className='flex py-2 px-8 justify-between items-center w-full'>
+    <nav className='flex py-2 px-8 justify-center md:justify-between items-center w-full'>
         {/* Logo */}
         <div>
             <Link href="/">
@@ -13,7 +13,7 @@ export default function TopMenu() {
             </Link>
         </div>
         {/* Menu */}
-        <div className='hidden sm:flex flex-1 justify-center items-center'>
+        <div className='hidden sm:flex flex-wrap flex-1 justify-center items-center'>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/">Inicio</Link>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/products">Productos</Link>
             <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/oversizes">Oversizes</Link>
