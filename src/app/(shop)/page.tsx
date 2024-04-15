@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       {/* //TODO Home page */}
+      <h1>Home Page</h1>
     </main>
   );
 }
