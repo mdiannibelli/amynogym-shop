@@ -1,3 +1,4 @@
+'use server';
 import { ValidTypes } from "@/interfaces/product.interface";
 import prisma from "@/lib/prisma";
 

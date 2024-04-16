@@ -4,7 +4,11 @@ import "./globals.css";
 import { mainFont} from "@/config/font";
 
 export const metadata: Metadata = {
-  title: "AMYNOGYM | Tienda Online",
+  //title: "AMYNOGYM | Tienda Online",
+  title: {
+    template: '%s - AMYNOGYM',
+    default: 'AMYNOGYM | Tienda Online'
+  },
   description: "Tienda online de ropa deportiva Amynogym",
 };
 

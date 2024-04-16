@@ -46,8 +46,17 @@ export default async function CategoryPage({params, searchParams}: Props) {
       <Title
       title={`${types[category]}`}
       subtitle={`Todas nuestros modelos ${(types[category]).toLowerCase()}`}/>
-      <ProductGrid products={products}/>
-      <Pagination totalPages={totalPages}/>
+      {
+        products.length === 0 ? (
+          <h1 className='text-4xl flex justify-center items-center p-48'>No se encontraron productos.</h1>
+        )
+        :
+        <>
+          <ProductGrid products={products}/>
+          <Pagination totalPages={totalPages}/>
+        </>
+
+      }
     </div>
   )
 }
