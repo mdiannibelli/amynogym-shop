@@ -23,8 +23,15 @@ export default async function ProductGender({params, searchParams}: Props) {
 
     const {products, totalPages} = await getPaginatedProductsWithImages({
         page,
-        gender: gender as Gender
+        gender: gender as Gender,
     })
+    
+    const labels: Record<string, string>  = {
+        'men': 'para hombres',
+        'women': 'para mujeres',
+        'kid': 'para niños',
+        'unisex': 'para todos'
+      }
 
     //? const products = initialData.products.filter((product) => product.gender === gender);
     
@@ -34,8 +41,8 @@ export default async function ProductGender({params, searchParams}: Props) {
     return (
         <div>
         <Titlte
-        title={`${gender}`}
-        subtitle={`Todos los productos de ${gender}`}
+        title={`Productos para ${labels[gender]}`}
+        subtitle={`Todos los productos ${labels[gender]}`}
         />
         <ProductGrid products={products}/>
         <Pagination totalPages={totalPages}/>

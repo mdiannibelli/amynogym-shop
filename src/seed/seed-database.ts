@@ -18,9 +18,9 @@ async function main() {
             //        name: 'Shirts',
             //    }
             //})
-    // Convertimos cada categoría a {"name": "Shirts"} para despues pasarselo a data
+    // Convertimos cada categoría a {"name": "shirts"} para despues pasarselo a data
     const categoriesData = categories.map((category) => ({
-        name: category
+        name: category.toLowerCase()
     }))
     await prisma.category.createMany({data: categoriesData});
 
