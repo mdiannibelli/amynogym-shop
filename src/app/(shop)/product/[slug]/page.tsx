@@ -1,6 +1,7 @@
 export const revalidate = 1080; //7 dias (60*60 => 1h * 24h => * 7 => 7dias)
 
 import { getProductBySlug } from '@/actions/products/get-product-by-slug';
+import { AddToCart } from '@/components/cart/AddToCart';
 import QuantitySelector from '@/components/product/quantitySelector/QuantitySelector';
 import SizeSelector from '@/components/product/sizesSelector/SizeSelector';
 import MobileSlideShow from '@/components/product/slideShow/MobileSlideShow';
@@ -73,14 +74,16 @@ export default async function ProductPage({params}: Props) {
         <p className='text-lg mb-5'>${(product.price).toFixed(2)}</p>
 
         {/* Selector de talles */}
-        <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes}/>
+        {/* <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes}/> */}
 
         {/* Selector de cantidad */}
-        <QuantitySelector quantity={2}/>
+        {/* <QuantitySelector quantity={2}/> */}
 
         {/* Boton añadir al carrito */}
-        <button className={`my-5 bg-blue-600 py-2 px-4 hover:bg-blue-700 duration-300 text-white font-regular ${sairaFont.className}`}>Agregar al carrito</button>
+        {/* <button className={`my-5 bg-blue-600 py-2 px-4 hover:bg-blue-700 duration-300 text-white font-regular ${sairaFont.className}`}>Agregar al carrito</button> */}
 
+        <AddToCart product={product}/>
+        
         {/* Descripción */}
         <h3 className='font-bold text-lg'>Descripción</h3>
         <p className={`${sairaFont.className} text-md`}>

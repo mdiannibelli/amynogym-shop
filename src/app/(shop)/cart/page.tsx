@@ -1,11 +1,11 @@
-import QuantitySelector from '@/components/product/quantitySelector/QuantitySelector'
+import { ProductsInCart } from '@/components/cart/ProductsInCart'
+import { Summary } from '@/components/cart/Summary'
 import Titlte from '@/components/ui/Title/Title'
 import { sairaFont } from '@/config/font'
 import { initialData } from '@/seed/seed'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { IoCloseCircleOutline } from 'react-icons/io5'
+
 
 // Productos en carrito (simulación)
 const productsInCart = [
@@ -27,7 +27,7 @@ export default function CartPage() {
               <Link href="/products" className='underline mb-5'>Continúa comprando</Link>
 
             {/* Items */}
-            {
+            {/* {
               productsInCart.map((product) => (
                 <div key={product.slug} className='flex mb-5'>
                   <Image 
@@ -48,7 +48,8 @@ export default function CartPage() {
                   </div>
                 </div>
               ))
-            }
+            } */}
+            <ProductsInCart/>
             </div>
 
             {/* Checkout */}
@@ -56,7 +57,7 @@ export default function CartPage() {
                 <h2 className='text-2xl mb-2'>Resumen de orden</h2>
                 <div className='grid grid-cols-2'>
 
-                  <span>Cantidad de productos</span>
+                  {/* <span>Cantidad de productos</span>
                   <span className='text-right'>2 artículos</span>
 
                   <span>Subtotal</span>
@@ -66,7 +67,8 @@ export default function CartPage() {
                   <span className='text-right'>$100</span>
 
                   <span className='text-2xl mt-5'>Total:</span>
-                  <span className='text-right mt-5 text-2xl'>$100</span>
+                  <span className='text-right mt-5 text-2xl'>$100</span> */}
+                  <Summary/>
 
                   <div className='col-span-2 mt-5 mb-2 w-full'>
                     <Link href='/checkout/adress' className={`flex justify-center bg-blue-600 py-2 px-4 hover:bg-blue-700 duration-300 text-white font-regular ${sairaFont.className}`}>Checkout</Link>
