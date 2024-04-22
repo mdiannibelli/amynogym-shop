@@ -28,9 +28,14 @@ enum Gender {
   unisex
 }
 
+enum Role {
+  admin
+  user
+}
+
 model Category {
-  id      String    @id @default(uuid())
-  name    String    @unique // No quiero tener 2 categorías iguales por lo tanto "@unique"
+  id   String @id @default(uuid())
+  name String @unique // No quiero tener 2 categorías iguales por lo tanto "@unique"
 
   Product Product[] // Crea la relación con producto, esto no crea otra columna solo establece la relación
 }
@@ -51,14 +56,25 @@ model Product {
   categoryId String // El campo categoryId será el campo [id] del model Category, creamos la relación de esta manera
 
   ProductImages ProductImages[]
+
   // Agrego un índice para buscar productos por género 
   @@index([gender])
 }
 
 model ProductImages {
-  id Int @id @default(autoincrement())
-  url String 
-  
-  product Product @relation(fields: [productId], references: [id])
+  id  Int    @id @default(autoincrement())
+  url String
+
+  product   Product @relation(fields: [productId], references: [id])
   productId String
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(user)
+  image         String?
 }

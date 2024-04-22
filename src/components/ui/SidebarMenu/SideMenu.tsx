@@ -1,6 +1,8 @@
 'use client';
+import { logout } from '@/actions/auth/logout';
 import { useUIStore } from '@/store/ui/ui';
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react'
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
@@ -8,6 +10,9 @@ import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPer
 export const SideMenu = () => {
     const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
     const closeSideMenu = useUIStore(state => state.closeSideMenu);
+
+    const {data: session} = useSession()
+    const isAuthenticated = session?.user;
   return (
     <div>
         {/* Black background */}
@@ -17,7 +22,7 @@ export const SideMenu = () => {
             )
         }
 
-        {/* Bluer backgroud */}
+        {/* Blur backgroud */}
         {
             isSideMenuOpen && (
                 <div onClick={closeSideMenu} className='fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm'/> 
@@ -48,7 +53,7 @@ export const SideMenu = () => {
             </div>
 
             {/* Menu Options */}
-            <Link href='/' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+            <Link href='/profile' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                 <IoPersonOutline size={30}/>
                 <span className='ml-3 text-sm md:text-xl'>Perfil</span>
             </Link>
@@ -60,14 +65,22 @@ export const SideMenu = () => {
                 <IoTicketOutline size={30}/>
                 <span className='ml-3 text-sm md:text-xl'>Ordenes</span>
             </Link>
-            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
-                <IoLogInOutline size={30}/>
-                <span className='ml-3 text-sm md:text-xl'>Ingresar</span>
-            </Link>
-            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
-                <IoLogOutOutline size={30}/>
-                <span className='ml-3 text-sm md:text-xl'>Salir</span>
-            </Link>
+            {
+                isAuthenticated && (
+                <button onClick={() => logout()} className='flex w-full items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                    <IoLogOutOutline size={30}/>
+                    <span className='ml-3 text-sm md:text-xl'>Salir</span>
+                </button>
+                ) 
+            }
+            {
+                !isAuthenticated && (
+                <Link href='/auth/login' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                    <IoLogInOutline size={30}/>
+                    <span className='ml-3 text-sm md:text-xl'>Ingresar</span>
+                </Link>
+                )
+            }
 
             {/* Line Separator */}
             <div className='w-full h-px bg-gray-200 my-10'></div>

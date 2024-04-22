@@ -1,3 +1,4 @@
+import { hashSync} from 'bcryptjs';
 interface SeedProduct {
     description: string;
     images: string[];
@@ -11,6 +12,14 @@ interface SeedProduct {
     gender: 'men'|'women'|'unisex'
 }
 
+// User
+interface SeedUser {
+    email: string;
+    password: string;
+    name: string;
+    role: 'admin' | 'user'
+}
+
 type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL';
 type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats' | 'oversizes';
 
@@ -18,12 +27,30 @@ interface SeedData {
     products: SeedProduct[],
     //? Agregamos las categorías para agregarlas en la tabla de Categorias en la DB 
     categories: string[];
+
+    //? user
+    users: SeedUser[]
 }
 
 
 
 
 export const initialData: SeedData = {
+    users: [
+        {
+            email: 'marcos@google.com',
+            name: 'Marcos Dionel',
+            password: hashSync('12345678'),
+            role: 'admin'
+        },
+        {
+            email: 'roberto@google.com',
+            name: 'Roberto Denapol',
+            password: hashSync('12345678'),
+            role: 'user'
+        },
+    ],
+
     //? Agregamos las categorías para agregarlas en la tabla de Categorias en la DB 
     categories: [
         'Shirts', 'Pants', 'Hoodies', 'Hats', 'Oversizes'

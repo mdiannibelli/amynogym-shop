@@ -3,14 +3,17 @@ import prisma from '../lib/prisma';
 import { initialData } from "./seed";
 
 async function main() {
-    //! 1. Borrar base de datos (registros previos) 
+    //! 1. Borrar base de datos (registros previos)
+    await prisma.user.deleteMany();
     await prisma.productImages.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
    
 
     //! 2. Tomamos productos y categories del seed
-    const {products, categories} = initialData;
+    const {products, categories, users} = initialData;
+    // insert users
+    await prisma.user.createMany({data: users})
 
     //! 3. Insertar categories
             // await prisma.category.create({
@@ -23,7 +26,7 @@ async function main() {
         name: category.toLowerCase()
     }))
     await prisma.category.createMany({data: categoriesData});
-
+    
     //! 4. Relacionar categories con product 
     // Tomamos todas las categorías de nuestra base de datos para luego obtener su id y su name de cada una
     const categoriesDB = await prisma.category.findMany();
