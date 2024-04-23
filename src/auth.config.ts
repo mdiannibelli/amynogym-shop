@@ -4,11 +4,45 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod'; // Validator schema
 import prisma from './lib/prisma';
 import bcryptjs from 'bcryptjs'
- 
+
+const authenticatedRoutes = [
+  '/checkout',
+  '/checkout/adress'
+]
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
     newUser: 'auth/new-account',
+  },
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = authenticatedRoutes.includes(nextUrl.pathname);
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } else if (isLoggedIn) {
+        return true;
+      }
+      return true;
+    },
+
+    jwt({token, user}) {
+      // user <- todo el objeto de usuario
+      //? console.log({token,user})
+      if(user) { // Le pasamos el user al token
+        token.data = user;
+      }
+      return token; 
+    },
+
+    session({session, token, user}) {
+      //? console.log({session, token, user})
+      // Ahora lo que nos paso el token.data será la sesion
+      session.user = token.data as any; 
+      return session
+    }
   },
   providers: [
     Credentials({

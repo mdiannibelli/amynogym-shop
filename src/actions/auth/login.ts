@@ -21,3 +21,16 @@ export async function authenticate(prevState: string | undefined, formData: Form
     throw error;
   }
 }
+
+export const registerAuthenticate = async(email:string, password:string) => {
+  try {
+    await signIn('credentials', {email, password})
+    return{ok: true};
+  } catch (error) {
+    console.log(error)
+    return {
+      ok: false,
+      message: 'No se pudo iniciar sesión'
+    }
+  }
+}
