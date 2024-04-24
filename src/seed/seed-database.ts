@@ -1,10 +1,12 @@
 /* Import Prisma */
 import prisma from '../lib/prisma';
 import { initialData } from "./seed";
+import {countries} from './seed-countries'
 
 async function main() {
     //! 1. Borrar base de datos (registros previos)
     await prisma.user.deleteMany();
+    await prisma.country.deleteMany();
     await prisma.productImages.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
@@ -14,6 +16,7 @@ async function main() {
     const {products, categories, users} = initialData;
     // insert users
     await prisma.user.createMany({data: users})
+    await prisma.country.createMany({data: countries})
 
     //! 3. Insertar categories
             // await prisma.category.create({
