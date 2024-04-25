@@ -1,3 +1,5 @@
+import { PlaceOrder } from '@/components/ui/checkout/PlaceOrder'
+import { ProductsInCartCheckout } from '@/components/ui/checkout/ProductsInCartCheckout'
 import Titlte from '@/components/ui/Title/Title'
 import { sairaFont } from '@/config/font'
 import { initialData } from '@/seed/seed'
@@ -26,7 +28,8 @@ export default function CheckoutPage() {
               <Link href="/cart" className='underline mb-5'>Editar carrito aquí</Link>
 
             {/* Items */}
-            {
+            {/* {
+            //! Before show adress in checkout (P)
               productsInCart.map((product) => (
                 <div key={product.slug} className='flex mb-5'>
                   <Image 
@@ -47,12 +50,14 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               ))
-            }
+            } */}
+            <ProductsInCartCheckout/>
             </div>
 
             {/* Checkout */}
-            <div className='bg-white rounded-xl shadow-xl p-7 w-full order-1 sm:order-2'>
-              {/* Confirmar dirección de entrega */}
+            {/* //! Before Show adress (P)
+               <div className='bg-white rounded-xl shadow-xl p-7 w-full order-1 sm:order-2'>
+              
                 <h2 className='text-2xl mb-2'>Dirección de entrega</h2>
                 <div className='mb-10'>
                   <p>Nombre y apellido: <span className='font-semibold'>Marcos Iannibelli</span></p>
@@ -64,7 +69,6 @@ export default function CheckoutPage() {
                   <p>Teléfono: <span className='font-semibold'>1166315085</span></p>
                 </div>
 
-                {/* Divider */}
                 <div className='w-full h-0.5 rounded bg-gray-200 mb-10'></div>
 
                 <h2 className='text-2xl mb-2'>Resumen de orden</h2>
@@ -83,7 +87,7 @@ export default function CheckoutPage() {
                   <span className='text-right mt-5 text-2xl'>$100</span>
 
                   <div className='col-span-2 mt-5 mb-2 w-full'>
-                    {/* disclaimer */}
+                    
                     <p className='mb-5'>
                       <span className='text-xs'>Al hacer click en Colocar orden, aceptas nuestros <a href='#' className='underline'>términos y condiciones</a> y <a href="#" className='underline'>política de privacidad</a>.</span>
                     </p>
@@ -91,7 +95,8 @@ export default function CheckoutPage() {
                     <Link href='/orders/123' className={`flex justify-center bg-blue-600 py-2 px-4 hover:bg-blue-700 duration-300 text-white font-regular ${sairaFont.className}`}>Colocar orden</Link>
                   </div>
                 </div>
-            </div>
+            </div> */}
+            <PlaceOrder/>
           </div>
         </div>
     </div>
