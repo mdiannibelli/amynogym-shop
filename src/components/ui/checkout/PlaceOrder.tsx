@@ -7,15 +7,19 @@ import { useCartStore } from "@/store/cart/cart-store";
 import { getCurrencyFormat } from "@/utils/getCurrencyFormat";
 //import { sleep } from "@/utils/sleep";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const PlaceOrder = () => {
+    const router = useRouter();
     const [loaded, setLoaded] = useState(false);
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+    const [error, setError] = useState("")
 
     const adress = useAdressStore(state => state.adress);
     const {totalItems, total, subTotal, tax} = useCartStore(state => state.getSummaryTotalCart());
     const cart = useCartStore(state => state.cart);
+    const clearCart = useCartStore(state => state.clearCart)
 
     useEffect(() => { //* Solucionar discrepancia (hydrate) con lo que se genera en el sv y en el client
         setLoaded(true)
@@ -33,9 +37,17 @@ export const PlaceOrder = () => {
         }))
         //console.log({productsToOrder,adress})
 
-        await placeOrders(productsToOrder, adress)
+        const resp = await placeOrders(productsToOrder, adress);
+        
+        if(!resp.ok) {
+            setIsPlacingOrder(false)
+            setError(resp.message);
+            return;
+        }
 
-        setIsPlacingOrder(false)
+        //* Si salió bien, se creo la orden
+        clearCart();
+        router.replace('/orders/' + resp.order?.id);
     }
 
     return (
@@ -74,7 +86,7 @@ export const PlaceOrder = () => {
                         <span className='text-xs'>Al hacer click en Colocar orden, aceptas nuestros <a href='#' className='underline'>términos y condiciones</a> y <a href="#" className='underline'>política de privacidad</a>.</span>
                     </p>
                     
-                    {/* <p className="text-red-500">Error al crear la orden</p> */}
+                    <p className="text-red-500">{error}</p>
                     <button 
                     onClick={placeOrder}
                     disabled={isPlacingOrder}

@@ -5,14 +5,16 @@ import { getCurrencyFormat } from "@/utils/getCurrencyFormat";
 import { useEffect, useState } from "react";
 
 export const Summary = () => {
-    const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const {total, subTotal, totalItems, tax} = useCartStore(state => state.getSummaryTotalCart());
+
     useEffect(() => {
         setLoaded(true)
     }, [])
-    if(loaded) {
+    
+    if(!loaded) {
         <p>Cargando...</p>
     }
-    const {total, subTotal, totalItems, tax} = useCartStore(state => state.getSummaryTotalCart());
   return (
     <>
         <span>Cantidad de productos</span>

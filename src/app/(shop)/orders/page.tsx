@@ -1,10 +1,24 @@
 // https://tailwindcomponents.com/component/hoverable-table
 
+import { getOrderByUser } from '@/actions/order/get-order-by-user';
+import { auth } from '@/auth.config';
 import Titlte from '@/components/ui/Title/Title';
+import { getCurrencyFormat } from '@/utils/getCurrencyFormat';
+import clsx from 'clsx';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
 
-export default function OrdersPage() {
+export default async function OrdersPage() {
+  const session = await auth();
+  if(!session) return null;
+  const userId = session.user.id;
+
+  const {orders = [], ok} = await getOrderByUser(userId);
+
+  if(!ok) {
+    redirect('/auth/login');
+  }
   return (
     <>
       <Titlte title="Orders" />
@@ -23,33 +37,56 @@ export default function OrdersPage() {
                 Estado
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Monto
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Opciones
               </th>
             </tr>
           </thead>
           <tbody>
+            {
+              orders.map((order) => (
+              <tr key={order.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
+                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {order.OrderAdress?.firstName} {order.OrderAdress?.lastName}
+                </td>
+                <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <IoCardOutline className={clsx(
+                    {
+                      "text-green-600" : order.isPaid,
+                      "text-red-600" : !order.isPaid,
+                    }
+                  )} />
+                  <span className={clsx(
+                    {
+                      "text-green-600 ml-2" : order.isPaid,
+                      "text-red-600 ml-2" : !order.isPaid,
+                    }
+                  )}>
+                    {order.isPaid ? 'Pagada' : 'No pagada'}
+                  </span>
 
-                <IoCardOutline className="text-green-800" />
-                <span className='mx-2 text-green-800'>Pagada</span>
+                </td>
 
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
+                <td className='text-sm px-6'>
+                  {getCurrencyFormat(order.total)}
+                </td>
 
-            </tr>
+                <td className="text-sm text-gray-900 font-light px-6 ">
+                  <Link href={`orders/${order.id}`} className="hover:underline">
+                    Ver orden
+                  </Link>
+                </td>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+              </tr>
+              ))
+            }
+
+            {/* <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
               <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -67,7 +104,7 @@ export default function OrdersPage() {
                 </Link>
               </td>
 
-            </tr>
+            </tr> */}
 
           </tbody>
         </table>

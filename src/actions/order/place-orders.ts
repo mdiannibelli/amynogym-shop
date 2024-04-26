@@ -49,4 +49,88 @@ export const placeOrders = async(productIds:ProductToOrder[], adress:Adress) => 
     //console.log({subtotal,tax,total})
 
     //! Crear la transacción
+    try {  
+        const prismaTx = await prisma.$transaction(async(tx) => {
+            // Actualizar stock de los productos
+            const updatedProductsPromises = productos.map(async (p) => {
+                const productQuantity = productIds.filter((prod) => prod.productId === p.id).reduce( (acc,item) => item.quantity + acc, 0); // Acumular los valores
+    
+                if(productQuantity === 0) throw new Error(`${p.id} no tiene cantidad definida`);
+    
+                return tx.product.update({
+                    where: {id: p.id},
+                    data: {
+                        //inStock: p.inStock - productQuantity <- no hacer, el p.inStock es un valor viejo porque en un punto dos personas pueden hacer una misma transaccion con las mismas cantidades
+                        inStock:{
+                            decrement: productQuantity
+                        }
+                    }
+                })
+            })
+    
+            const updatedProducts = await Promise.all(updatedProductsPromises);
+            // Verificar que el producto no tenga valores negativos en stock
+            updatedProducts.forEach((product) => {
+                if(product.inStock < 0) {
+                    throw new Error(`${product.title} no tiene stock`)
+                } 
+            })
+    
+            // Crear encabezado de la orden y detalles
+            const order = await tx.orders.create({
+                data: {
+                    userId: userId,
+                    itemsInOrder: itemsInOrder,
+                    subTotal: subtotal, 
+                    tax: tax,
+                    total: total,
+                    
+                    OrderItems: {
+                        createMany: {
+                            data: productIds.map((product) => ({
+                                quantity: product.quantity,
+                                size: product.size,
+                                productId: product.productId,
+                                price: productos.find((p) => p.id === product.productId)?.price ?? 0
+                            }))
+                        }
+                    }
+    
+                }
+            })
+    
+            // Crear el adress
+            const {firstName, lastName, adress:direccion, adress2, postalCode, city, phone, country} = adress;
+            const orderAdress = await tx.orderAdress.create({
+                data: {
+                    firstName: firstName,
+                    lastName: lastName, 
+                    adress: direccion,
+                    adress2: adress2,
+                    postalCode: postalCode,
+                    city: city,
+                    phone: phone,
+                    countryId: country,
+                    ordersId: order.id
+                }
+            })
+    
+            return {
+                updatedProducts: updatedProducts, // No es necesario regresarlo, solo la orden
+                order: order,
+                orderAdress: orderAdress
+            }
+        });
+
+        return {
+            ok: true,
+            order: prismaTx.order,
+            prismaTx: prismaTx
+        }
+    } catch (error:any) {
+        return {
+            ok: false,
+            message: error?.message
+        }
+    }
 }
