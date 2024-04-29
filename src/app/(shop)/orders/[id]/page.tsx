@@ -2,6 +2,7 @@ import { getUserAdress } from '@/actions/adress/get-user-adress'
 import { getOrderById } from '@/actions/order/get-order-by-id'
 import { placeOrders } from '@/actions/order/place-orders'
 import { auth } from '@/auth.config'
+import { PaypalButton } from '@/components/paypal/PaypalButton'
 import Titlte from '@/components/ui/Title/Title'
 import { sairaFont } from '@/config/font'
 import { initialData } from '@/seed/seed'
@@ -89,8 +90,8 @@ export default async function OrderIdPage({params}: Props) {
             }
             </div> */}
             {
-              products?.map((product) => (
-                <div key={product.product.slug} className='flex mb-5'>
+              products?.map((product, index) => (
+                <div key={index} className='flex mb-5'>
                   <Image 
                   src={`/products/${product.product.ProductImages[0].url}`} width={100} height={100} alt={product.product.title} 
                   className='mr-5 rounded'
@@ -146,7 +147,7 @@ export default async function OrderIdPage({params}: Props) {
                   <div className='col-span-2 mt-5 mb-2 w-full'>
                   
                     {/* Orden pagada / Pendiente de pago */}
-                      <div className={
+                      {/*//! Before paypal <div className={
                         clsx(
                           `flex items-center rounded-lg py-2 px-3.5 text-lg font-medium text-white mb-5 ${sairaFont.className}`,
                           {
@@ -156,9 +157,29 @@ export default async function OrderIdPage({params}: Props) {
                         )
                         }>
                         <IoCardOutline size={30}/>
-                        {/* <span className='mx-2'>Pendiente de pago</span> */}
                         <span className='mx-2'>{order?.isPaid ? 'Pagada' : 'No pagada'}</span>
-                      </div>
+                      </div> */}
+
+                      {
+                        order?.isPaid ? (
+                          <div className={
+                            clsx(
+                              `flex items-center rounded-lg py-2 px-3.5 text-lg font-medium text-white mb-5 ${sairaFont.className}`,
+                              {
+                                'bg-red-700': !order?.isPaid,
+                                'bg-green-700': order?.isPaid,
+                              }
+                            )
+                            }>
+                            <IoCardOutline size={30}/>
+                            <span className='mx-2'>{order?.isPaid ? 'Pagada' : 'No pagada'}</span>
+                          </div>
+                        ) : 
+                        (<PaypalButton
+                          amount={order!.total}
+                          orderId={order!.id}
+                        />)
+                      }
 
                   </div>
                 </div>

@@ -5,11 +5,14 @@ import {countries} from './seed-countries'
 
 async function main() {
     //! 1. Borrar base de datos (registros previos)
-    await prisma.user.deleteMany();
-    await prisma.country.deleteMany();
     await prisma.orderAdress.deleteMany();
     await prisma.orderItems.deleteMany();
     await prisma.orders.deleteMany();
+
+    await prisma.userAdress.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.country.deleteMany();
+
     await prisma.productImages.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();

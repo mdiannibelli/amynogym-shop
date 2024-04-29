@@ -58,7 +58,7 @@ export const AdressForm = ({ countries, userStoredAdress = {} }: Props) => {
         if(rememberAdress === true) {
             await setUserAdress(restAdress, session!.user.id)
         } else {
-            await deleteUserAdress(session!.user.id)
+            await deleteUserAdress(session!.user.id);
         }
 
         router.push('/checkout')

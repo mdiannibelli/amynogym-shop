@@ -9,11 +9,9 @@ export const deleteUserAdress = async(userId:string) => {
                 userId: userId
             }
         });
-        return {
-            ok: true
-        }
+        return {ok: true}
     } catch (error) {
         console.log(error);
-        throw new Error('No se pudo borrar la dirección')
+        //throw new Error('No se pudo borrar la dirección');
     }
 }
