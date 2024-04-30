@@ -53,17 +53,17 @@ export const SideMenu = () => {
                 </div>
 
                 {/* Menu Options */}
-                <Link href='/profile' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                <Link onClick={closeSideMenu} href='/profile' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                     <IoPersonOutline size={30} />
                     <span className='ml-3 text-sm md:text-xl'>Perfil</span>
                 </Link>
-                <Link href='/products' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                <Link onClick={closeSideMenu} href='/products' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                     <IoPersonOutline size={30} />
                     <span className='ml-3 text-sm md:text-xl'>Tienda</span>
                 </Link>
-                <Link href='/orders' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                <Link onClick={closeSideMenu} href='/orders' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                     <IoTicketOutline size={30} />
-                    <span className='ml-3 text-sm md:text-xl'>Ordenes</span>
+                    <span className='ml-3 text-sm md:text-xl'>Ordenes</span> 
                 </Link>
                 {
                     isAuthenticated && (
@@ -87,17 +87,17 @@ export const SideMenu = () => {
                 {
                     isAuthenticated && session.user.role === 'admin' ? (
                         <>
-                            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                            <Link onClick={closeSideMenu} href='/admin/productos' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                                 <IoShirtOutline size={30} />
                                 <span className='ml-3 text-sm md:text-xl'>Productos</span>
                             </Link>
-                            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                            <Link onClick={closeSideMenu} href='/admin/orders' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                                 <IoTicketOutline size={30} />
                                 <span className='ml-3 text-sm md:text-xl'>Orders</span>
                             </Link>
-                            <Link href='#' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
+                            <Link onClick={closeSideMenu} href='/admin/users' className='flex items-center md:mt-10 p-2 py-4 hover:bg-gray-100 rounded transition-all'>
                                 <IoPeopleOutline size={30} />
-                                <span className='ml-3 text-sm md:text-xl'>Clientes</span>
+                                <span className='ml-3 text-sm md:text-xl'>Usuarios</span>
                             </Link>
                         </>
                     ) : ''

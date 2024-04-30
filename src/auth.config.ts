@@ -7,7 +7,10 @@ import bcryptjs from 'bcryptjs'
 
 const authenticatedRoutes = [
   '/checkout',
-  '/checkout/adress'
+  '/checkout/adress',
+  'admin/orders',
+  'admin/users',
+  'admin/productos',
 ]
 
 export const authConfig: NextAuthConfig = {

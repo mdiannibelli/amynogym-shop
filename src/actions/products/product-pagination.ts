@@ -1,5 +1,4 @@
 'use server';
-import { ValidTypes } from "@/interfaces/product.interface";
 import prisma from "@/lib/prisma"
 import { Gender } from "@prisma/client";
 
@@ -9,7 +8,7 @@ interface PaginationOptions {
     gender?: Gender;
 }
 
-export const getPaginatedProductsWithImages = async({gender, page = 1, take = 12,}: PaginationOptions) => {
+export const getPaginatedProductsWithImages = async({gender, page = 1, take = 12}: PaginationOptions) => {
     if(isNaN(Number(page))) page = 1;
     if(page < 1 ) page = 1;
     try {

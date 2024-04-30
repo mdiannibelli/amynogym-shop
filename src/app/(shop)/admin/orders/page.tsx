@@ -1,8 +1,8 @@
 export const revalidate = 0;
 // https://tailwindcomponents.com/component/hoverable-table
 
-import { getOrderByUser } from '@/actions/order/get-order-by-user';
-import { auth } from '@/auth.config';
+import { getPaginatedOrders } from '@/actions/order/get-paginated-orders';
+import Pagination from '@/components/ui/pagination/Pagination';
 import Titlte from '@/components/ui/Title/Title';
 import { getCurrencyFormat } from '@/utils/getCurrencyFormat';
 import clsx from 'clsx';
@@ -10,19 +10,24 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
 
-export default async function OrdersPage() {
-  const session = await auth();
-  if(!session) return null;
-  const userId = session.user.id;
+interface Props {
+    searchParams: {
+        page?: string;
+    }
+}
 
-  const {orders = [], ok} = await getOrderByUser(userId);
+export default async function OrdersPage({searchParams}: Props) {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+
+
+  const {orders = [], ok, currentPage, totalPages} = await getPaginatedOrders({page});
 
   if(!ok) {
     redirect('/auth/login');
   }
   return (
     <>
-      <Titlte title="Orders" />
+      <Titlte title="Todas las orders" />
 
       <div className="mb-10">
         <table className="min-w-full">
@@ -36,7 +41,7 @@ export default async function OrdersPage() {
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Estado
-              </th>
+              </th> 
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Monto
               </th>
@@ -47,7 +52,7 @@ export default async function OrdersPage() {
           </thead>
           <tbody>
             {
-              orders.map((order) => (
+              orders.map((order:any) => (
               <tr key={order.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
@@ -87,28 +92,9 @@ export default async function OrdersPage() {
               ))
             }
 
-            {/* <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                <IoCardOutline className="text-red-800" />
-                <span className='mx-2 text-red-800'>No Pagada</span>
-
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
-
-            </tr> */}
-
           </tbody>
         </table>
+        <Pagination totalPages={totalPages}/>
       </div>
     </>
   );
