@@ -42,7 +42,7 @@ export default async function CategoryPage({params, searchParams}: Props) {
   }
 
   return (
-    <div>
+    <div className='md:p-3'>
       <Title
       title={`${types[category]}`}
       subtitle={`Todas nuestros modelos ${(types[category]).toLowerCase()}`}/>

@@ -3,9 +3,10 @@
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
-      {/* //TODO Home page */}
-      <h1>Home Page</h1>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <div>
+        <img src="/imgs/home.jpg" alt="Home" className="object-cover w-full" />
+      </div>
     </main>
   );
 }

@@ -12,8 +12,8 @@ export default function ShopLayout({children}: {children:React.ReactNode}) {
         <Announcement/>
         <TopMenu/>
         <SideMenu/>
-        <div className='md:px-4 items-center'>
-        {children}
+        <div className='items-center'>
+          {children}
         </div>
         <Footer/>
     </main>

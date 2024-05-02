@@ -22,8 +22,8 @@ export default async function ProductsPage({searchParams}: Props) {
   });
   //console.log({currentPage, totalPages})
   return (
-    
-    (
+    <section className='p-3'>
+    {
       products.length === 0 
       ? <div className='flex flex-col items-center justify-center p-24'>
         <h1 className='text-4xl'>No se han encontrado productos</h1>
@@ -37,6 +37,7 @@ export default async function ProductsPage({searchParams}: Props) {
       <ProductGrid products={products}/>
       <Pagination totalPages={totalPages}/>
     </div>
-    )
+    }
+    </section>
   )
 }

@@ -39,7 +39,7 @@ export default async function ProductGender({params, searchParams}: Props) {
         notFound()
     }
     return (
-        <div>
+        <div className='md:p-3'>
         <Titlte
         title={`Productos para ${labels[gender]}`}
         subtitle={`Todos los productos ${labels[gender]}`}
