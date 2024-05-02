@@ -2,12 +2,14 @@ export const revalidate = 0;
 // https://tailwindcomponents.com/component/hoverable-table
 
 import { getPaginatedProductsWithImages } from '@/actions/products/product-pagination';
+import ProductImage from '@/components/product/product-image/ProductImage';
 import Pagination from '@/components/ui/pagination/Pagination';
 import Titlte from '@/components/ui/Title/Title';
 import { getCurrencyFormat } from '@/utils/getCurrencyFormat';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { IoPencil } from 'react-icons/io5';
 
 interface Props {
     searchParams: {
@@ -56,6 +58,9 @@ export default async function OrdersPage({searchParams}: Props) {
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Talles
               </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Editar
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -63,15 +68,18 @@ export default async function OrdersPage({searchParams}: Props) {
               products.map((product) => (
               <tr key={product.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <Link href={`/products/${product.slug}`}><Image src={`/products/${product.ProductImages[0].url}`} width={80} height={80} alt={product.title} className='w-20 h-20 object-cover rounded'/></Link>
+                  <Link href={`/product/${product.slug}`}>
+                    <ProductImage width={100} height={100} src={product.ProductImages[0]?.url} alt={product.title} className='w-20 h-20 object-cover rounded'/>
+                  </Link>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.id}</td>
-                <td className='px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-gray-900'><Link href={`/admin/productos/${product.slug}`}>{product.title}</Link></td>
+                <td className='px-6 py-4 whitespace-nowrap text-sm font-medium hover:underline text-gray-900'><Link href={`/product/${product.slug}`}>{product.title}</Link></td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{getCurrencyFormat(product.price)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.gender}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.tags}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.inStock}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.sizes.join(', ')}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><Link href={`/admin/productos/${product.slug}`}><IoPencil className='cursor-pointer bg-blue-500 text-white rounded-md p-2' size={30}/></Link></td>
                 
 
               </tr>
