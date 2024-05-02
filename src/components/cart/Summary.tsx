@@ -18,7 +18,7 @@ export const Summary = () => {
       if ( totalItems === 0 && loaded === true )   {
         router.replace('/empty')
       }  
-    },[ totalItems, loaded ])
+    },[ totalItems, loaded, router ])
     
     if(!loaded) return <p>Cargando...</p>
 
